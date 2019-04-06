@@ -1,0 +1,10 @@
+html.no-details details {
+  &:not([open]) > :not(summary) { display: none; }
+  &[open] > summary:before { content: "\u25bc"; }
+  > summary:before {
+    content: "\u25b6";
+    display: inline-block;
+    font-size: .8em;
+    width: 1.5em;
+  }
+}
