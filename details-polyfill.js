@@ -17,8 +17,9 @@
   
   // Click handler for `<summary>` tags 
   function clickHandler (e) {
-    if (e.target.nodeName.toLowerCase() === 'summary') {
-      var details = e.target.parentNode;
+    var target = lookupByType(e.target, SUMMARY, ['body', 'html', DETAILS]);
+    if (target) {
+      var details = target.parentNode;
       if (!details) { return; }
 
       if (details.getAttribute('open')) {
@@ -29,6 +30,13 @@
         details.setAttribute('open', 'open');
       }
     }
+  }
+
+  function lookupByType (el, target_name, arr) {
+    if (!arr.length) { arr.push('body'); }
+    var name = el.nodeName.toLowerCase();
+    if (arr.indexOf(name) >= 0) { return null; }
+    return name !== target_name ? lookupByType(el.parentNode, target_name, arr) : el;
   }
 
   // Checks for support for `<details>` 
